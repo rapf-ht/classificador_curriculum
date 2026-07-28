@@ -53,8 +53,4 @@ Analise a aderência entre o currículo e a vaga acima, seguindo o formato JSON 
         },
     )
 
-    try:
-        return json.loads(response.text)
-    except json.JSONDecodeError:
-        cleaned = response.text.replace("```json", "").replace("```", "").strip()
-        return json.loads(cleaned)
+# client.file.delete("gen.md") # test/deletar informações sensíveis
