@@ -7,7 +7,7 @@ from pydantic import BaseModel, Field
 
 load_dotenv()
 
-client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
+client = genai.Client(api_key=os.getenv("GEMINI_KEY"))
 
 # Lê o gen.md e extrai o prompt
 # Melhorar isso

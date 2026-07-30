@@ -2,7 +2,7 @@ from fastapi import FastAPI, UploadFile, File, Form, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
 from pdf_utils import extrair_texto_pdf
-from gemini_client import analisar_curriculo
+from client import analisar_curriculo
 
 app = FastAPI()
 
