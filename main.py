@@ -1,7 +1,7 @@
 from fastapi import FastAPI, UploadFile, File, Form, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
-from pdf_utils import extrair_texto_pdf
+from extract_text_pdf import extract_text_from_pdf
 from client import analisar_curriculo
 
 app = FastAPI()
@@ -31,7 +31,7 @@ async def analisar(
     conteudo = await curriculo.read()
 
     try:
-        texto_curriculo = extrair_texto_pdf(conteudo)
+        texto_curriculo = extract_text_pdf(conteudo)
     except ValueError as e:
         raise HTTPException(status_code=422, detail=str(e))
 
