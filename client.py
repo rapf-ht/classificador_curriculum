@@ -53,4 +53,6 @@ Analise a aderência entre o currículo e a vaga acima, seguindo o formato JSON 
         ),
     )
 
+    return response.parsed
+
 # client.file.delete("gen.md") # test/deletar informações sensíveis
