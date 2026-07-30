@@ -4,6 +4,8 @@ from google import genai
 from google.genai import types
 from dotenv import load_dotenv # api key call
 from pydantic import BaseModel, Field
+from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_exception_type
+from google.genai.errors import ServerError
 
 load_dotenv()
 
@@ -13,6 +15,13 @@ client = genai.Client(api_key=os.getenv("GEMINI_KEY"))
 # Melhorar isso
 with open("gen.md", "r", encoding="utf-8") as f:
     SYSTEM_PROMPT = f.read().split("---")[0].strip() # antes do "---"
+
+# Reinicia o processo em caso de erro por parte do Google
+@retry(
+    stop=stop_after_attempt(3),
+    wait=wait_exponential(multiplier=2, min=2, max=10),
+    retry=retry_if_exception_type(ServerError),
+)
 
 class AnalysisResult(BaseModel):
     score: int = Field(description="Nota de 0 a 100, de acordo com a compatibilidade entre a oferta de trabalho e o currículo recebido.")
@@ -42,14 +51,14 @@ Analise a aderência entre o currículo e a vaga acima, seguindo o formato JSON 
 """
 
     response = client.models.generate_content(
-        model='gemini-2.5-flash',
-        contents=[arquivo_curriculo, user_prompt],
+        model='gemini-3.5-flash-lite',
+        contents=user_prompt,
         config=types.GenerateContentConfig(
             system_instruction=SYSTEM_PROMPT,
             temperature=0.3,
             # These two lines guarantee valid JSON matching your Pydantic schema
             response_mime_type="application/json",
-            response_schema=AnalysisResult(),
+            response_schema=AnalysisResult,
         ),
     )
 
