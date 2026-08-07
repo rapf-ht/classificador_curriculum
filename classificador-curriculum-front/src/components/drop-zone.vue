@@ -11,7 +11,7 @@
       <input
         ref="fileInput"
         type="file"
-        accept=".pdf, .doc, .docx"
+        accept=".pdf"
         class="hidden-input"
         @change="onFileSelect"
       />
