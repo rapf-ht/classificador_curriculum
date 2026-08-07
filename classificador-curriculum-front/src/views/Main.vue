@@ -1,5 +1,5 @@
 <script setup>
-import Dropzone from '../components/Dropzone.vue';
+import Dropzone from '../components/dropzone.vue';
 
 
 </script>
