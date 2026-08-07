@@ -1,7 +1,8 @@
 <script setup>
-import Dropzone from '../components/dropzone.vue';
-
-
+import Dropzone from '../components/drop-zone.vue';
+function loadResume() {
+  window.location.href = "http://localhost:5173/views/loading"
+}
 </script>
 
 <template>
