@@ -1,9 +1,16 @@
 import pdfplumber
 from io import BytesIO
 
-def extract_text_from_pdf(pdf_bytes):
+
+def extract_text_from_pdf(pdf_bytes: bytes) -> str:
+    texto = ""
     with pdfplumber.open(BytesIO(pdf_bytes)) as pdf:
-        text_space = ''
-        for page in pdf.pages:
-            text_space += page.extract_text() + '\n' # Extraindo texto de cada página
-    return text_space.strip()
+        for pagina in pdf.pages:
+            texto_pagina = pagina.extract_text()
+            if texto_pagina:
+                texto += texto_pagina + "\n"
+
+    if not texto.strip():
+        raise ValueError("Não foi possível extrair texto do PDF (pode ser um PDF escaneado/imagem).")
+
+    return texto.strip()

@@ -30,7 +30,7 @@ async function enviarAnalise() {
 </script>
 
 <template>
-  <div class="main" v-if="status === 'idle' || status === 'error'">
+  <div class="main" v-if="status === 'idle'">
     <h1>Classificador de Currículos</h1>
     <p>Envie seu currículo em PDF e a descrição da vaga para receber uma análise de aderência.</p>
 
@@ -78,7 +78,7 @@ async function enviarAnalise() {
     <p>Refaça o processo e tente novamente</p>
     
     <div class="error-image">
-      <img src="hamster-coffee.gif" alt="Erro Hamster" />
+      <img src="../assets/hamster-coffee.gif" alt="Erro Hamster" />
     </div>
 
   </div>

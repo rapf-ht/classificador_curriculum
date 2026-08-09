@@ -6,7 +6,6 @@ from client import analisar_curriculo
 
 app = FastAPI()
 
-# Necessário pro React (rodando em outra porta) conseguir chamar essa API
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],  # em produção, trocar "*" pelo domínio do seu front
@@ -31,7 +30,7 @@ async def analisar(
     conteudo = await curriculo.read()
 
     try:
-        texto_curriculo = extract_text_pdf(conteudo)
+        texto_curriculo = extract_text_from_pdf(conteudo)
     except ValueError as e:
         raise HTTPException(status_code=422, detail=str(e))
 
